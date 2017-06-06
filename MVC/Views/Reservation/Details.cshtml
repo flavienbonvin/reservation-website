@@ -1,0 +1,69 @@
+﻿@model DTO.Reservation
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Reservation</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            Lastname
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Client.Lastname)
+        </dd>
+        <dt>
+            Firstname
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Client.Firstname)
+        </dd>
+        <dt>
+            Email
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Client.email)
+        </dd>
+        <dt>
+            Arrival
+        </dt>
+
+        <dd>
+            @Model.StartDate.Date.ToString("dd/MM/yyyy")
+        </dd>
+
+        <dt>
+            Departure
+        </dt>
+
+        <dd>
+            @Model.EndDate.Date.ToString("dd/MM/yyyy")
+        </dd>
+        <dt>
+            Room name
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Room.Name)
+        </dd>
+        <dt>
+            Option
+        </dt>
+
+        <dd>
+           Single @Html.DisplayFor(model => model.Room.Single)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
