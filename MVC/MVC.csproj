@@ -162,10 +162,15 @@
     <Content Include="Views\Room\Index.cshtml" />
     <Content Include="Views\Reservation\Index.cshtml" />
     <Content Include="Views\Reservation\Details.cshtml" />
-    <Content Include="Views\Reservation\Edit.cshtml" />
     <Content Include="Views\Client\Create.cshtml" />
     <Content Include="Views\Room\Create.cshtml" />
     <Content Include="Views\Reservation\Create.cshtml" />
+    <Content Include="Views\Reservation\Delete.cshtml" />
+    <Content Include="Views\Client\Delete.cshtml" />
+    <Content Include="Views\Room\Delete.cshtml" />
+    <Content Include="Views\Client\Edit.cshtml" />
+    <Content Include="Views\Room\Edit.cshtml" />
+    <Content Include="Views\Reservation\Edit.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -176,6 +181,7 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Models\" />
+    <Folder Include="Views\Default\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\BLL\BLL.csproj">

@@ -18,7 +18,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.reservation.StartDate, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.reservation.StartDate, new { htmlAttributes = new { @class = "form-control", @type = "Date" } })
+                @Html.EditorFor(model => model.reservation.StartDate, new { htmlAttributes = new { @class = "form-control", @type = "date" } })
                 @Html.ValidationMessageFor(model => model.reservation.StartDate, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -26,30 +26,21 @@
         <div class="form-group">
             @Html.LabelFor(model => model.reservation.EndDate, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.reservation.EndDate, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.EditorFor(model => model.reservation.EndDate, new { htmlAttributes = new { @class = "form-control", @type = "date" } })
                 @Html.ValidationMessageFor(model => model.reservation.EndDate, "", new { @class = "text-danger" })
             </div>
         </div>
         <div class="form-group">
             @Html.LabelFor(model => model.Clients, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                <select id="clients" name="CheckedClient">
-                    @foreach (var client in Model.Clients)
-                {
-                        <option value="@client.Id">@client.Lastname @client.Firstname</option>
-                    }
-                </select>
+                @Html.DropDownListFor(model => model.reservation.Client.Id, new SelectList(Model.Clients, "Id", "Lastname"))
             </div>
+            
         </div>
         <div class="form-group">
-            @Html.LabelFor(model => model.Rooms, htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.Rooms, htmlAttributes: new { @class = "control-label col-md-2"})
             <div class="col-md-10">
-                <select id="room" name="CheckedRoom">
-                    @foreach (var room in Model.Rooms)
-                {
-                        <option value="@room.Id">@room.Name</option>
-                    }
-                </select>
+                @Html.DropDownListFor(model => model.reservation.Room.Id, new SelectList(Model.Rooms, "Id", "Name"))
             </div>
         </div>
 

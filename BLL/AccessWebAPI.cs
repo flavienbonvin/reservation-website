@@ -13,8 +13,8 @@ namespace BLL
     {
         private string baseUri = "http://localhost:50210/api/";
 
-        //----------------------------------------------------------------------------------------------
-        //Client
+        //----------------------------------CLIENT------------------------------------------
+
         public List<Client> getClients()
         {
             //want to access this link
@@ -52,7 +52,7 @@ namespace BLL
 
         public bool PutClient(Client client)
         {
-            string uri = baseUri + "client";
+            string uri = baseUri + "client/" + client.Id;
             using (HttpClient clientHTTP = new HttpClient())
             {
                 string pro = JsonConvert.SerializeObject(client);
@@ -62,10 +62,10 @@ namespace BLL
             }
 
         }
-        
+
         public bool DeleteClient(int id)
         {
-            string uri = baseUri + "client";
+            string uri = baseUri + "client/" + id;
             using (HttpClient clientHTTP = new HttpClient())
             {
                 Task<HttpResponseMessage> reponse = clientHTTP.DeleteAsync(uri);
@@ -73,9 +73,9 @@ namespace BLL
             }
         }
 
-        //----------------------------------------------------------------------------------------------
-        //Room
-        public List<Room> getRoom()
+        //----------------------------------ROOM------------------------------------------
+
+        public List<Room> GetRooms()
         {
             //want to access this link
             string uri = baseUri + "room";
@@ -85,6 +85,16 @@ namespace BLL
                 return JsonConvert.DeserializeObject<List<Room>>(response.Result);
             }
 
+        }
+
+        public Room getRoomById(int id)
+        {
+            string uri = baseUri + "room/" + id;
+            using (HttpClient clientHTTP = new HttpClient())
+            {
+                Task<string> response = clientHTTP.GetStringAsync(uri);
+                return JsonConvert.DeserializeObject<Room>(response.Result);
+            }
         }
 
         public bool PostRoom(Room room)
@@ -100,10 +110,32 @@ namespace BLL
 
         }
 
+        public bool PutRoom(Room room)
+        {
+            string uri = baseUri + "room/" + room.Id;
+            using (HttpClient clientHTTP = new HttpClient())
+            {
+                string pro = JsonConvert.SerializeObject(room);
+                StringContent frame = new StringContent(pro, Encoding.UTF8, "Application/json");
+                Task<HttpResponseMessage> reponse = clientHTTP.PutAsync(uri, frame);
+                return reponse.Result.IsSuccessStatusCode;
+            }
+        }
 
-        //----------------------------------------------------------------------------------------------
-        //Reservation
-        public List<Reservation> getReservation()
+        public bool DeleteRoom(int id)
+        {
+            string uri = baseUri + "room/" + id;
+            using (HttpClient clientHTTP = new HttpClient())
+            {
+                Task<HttpResponseMessage> reponse = clientHTTP.DeleteAsync(uri);
+                return reponse.Result.IsSuccessStatusCode;
+            }
+        }
+
+
+        //----------------------------------RESERVATION------------------------------------------
+
+        public List<Reservation> getReservations()
         {
             //want to access this link
             string uri = baseUri + "reservation";
@@ -117,25 +149,12 @@ namespace BLL
 
         public Reservation getReservationById(int id)
         {
-            string uri = baseUri + "reservation/"+id;
+            string uri = baseUri + "reservation/" + id;
             using (HttpClient clientHTTP = new HttpClient())
             {
                 Task<string> response = clientHTTP.GetStringAsync(uri);
                 return JsonConvert.DeserializeObject<Reservation>(response.Result);
             }
-        }
-
-        public bool PutReservation(Reservation reservation)
-        {
-            string uri = baseUri + "reservation";
-            using (HttpClient clientHTTP = new HttpClient())
-            {
-                string pro = JsonConvert.SerializeObject(reservation);
-                StringContent frame = new StringContent(pro, Encoding.UTF8, "Application/json");
-                Task<HttpResponseMessage> reponse = clientHTTP.PutAsync(uri, frame);
-                return reponse.Result.IsSuccessStatusCode;
-            }
-
         }
 
         public bool PostReservation(Reservation reservation)
@@ -149,6 +168,28 @@ namespace BLL
                 return reponse.Result.IsSuccessStatusCode;
             }
 
+        }
+
+        public bool PutReservation(Reservation reservation)
+        {
+            string uri = baseUri + "reservation/" + reservation.Id;
+            using (HttpClient clientHTTP = new HttpClient())
+            {
+                string pro = JsonConvert.SerializeObject(reservation);
+                StringContent frame = new StringContent(pro, Encoding.UTF8, "Application/json");
+                Task<HttpResponseMessage> reponse = clientHTTP.PutAsync(uri, frame);
+                return reponse.Result.IsSuccessStatusCode;
+            }
+        }
+
+        public bool DeleteReservation(int id)
+        {
+            string uri = baseUri + "reservation/" + id;
+            using (HttpClient clientHTTP = new HttpClient())
+            {
+                Task<HttpResponseMessage> reponse = clientHTTP.DeleteAsync(uri);
+                return reponse.Result.IsSuccessStatusCode;
+            }
         }
 
     }

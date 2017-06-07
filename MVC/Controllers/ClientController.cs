@@ -33,20 +33,36 @@ namespace MVC.Controllers
             return RedirectToAction("Index");
         }
 
+        public ActionResult Edit(int id)
+        {
+            AccessWebAPI access = new AccessWebAPI();
+            return View(access.getClientById(id));
+        }
+
+        [HttpPost]
+        public ActionResult Edit(Client client)
+        {
+            AccessWebAPI access = new AccessWebAPI();
+            access.PutClient(client);
+
+            return RedirectToAction("index");
+        }
+
         public ActionResult Delete(int id)
         {
             AccessWebAPI access = new AccessWebAPI();
             Client client = access.getClientById(id);
+
             return View(client);
         }
+
         [HttpPost]
-        public ActionResult Delete(int id)
+        public ActionResult Delete(int id, string __RequestVerificationToken)
         {
             AccessWebAPI access = new AccessWebAPI();
             access.DeleteClient(id);
-            return RedirectToAction("Index");
+
+            return RedirectToAction("index");
         }
-
-
     }
 }
