@@ -11,28 +11,27 @@ namespace MVC.Controllers
 {
     public class ReservationController : Controller
     {
+        RESTReservationClient RESTReservationClient = new RESTReservationClient();
+
         // GET: Reservation
         public ActionResult Index()
         {
-            AccessWebAPI access = new AccessWebAPI();
-
-            return View(access.getReservations());
+            return View(RESTReservationClient.getReservations());
         }
 
         public ActionResult Details(int id)
         {
-            AccessWebAPI access = new AccessWebAPI();
-
-            return View(access.getReservationById(id));
+            return View(RESTReservationClient.getReservationById(id));
         }
 
         public ActionResult Create()
         {
-            AccessWebAPI access = new AccessWebAPI();
+            RESTClientClient RESTClientClient = new RESTClientClient();
+            RESTRoomClient RESTRoomClient = new RESTRoomClient();
 
             ReservationVM rVM = new ReservationVM();
-            rVM.Clients = access.getClients();
-            rVM.Rooms = access.GetRooms();
+            rVM.Clients = RESTClientClient.getClients();
+            rVM.Rooms = RESTRoomClient.GetRooms();
 
             return View(rVM);
         }
@@ -40,24 +39,26 @@ namespace MVC.Controllers
         [HttpPost]
         public ActionResult Create(Reservation reservation)
         {
-            AccessWebAPI access = new AccessWebAPI();
+            RESTClientClient RESTClientClient = new RESTClientClient();
+            RESTRoomClient RESTRoomClient = new RESTRoomClient();
 
-            reservation.Client = access.getClientById(reservation.Client.Id);
-            reservation.Room = access.getRoomById(reservation.Room.Id);
+            reservation.Client = RESTClientClient.getClientById(reservation.Client.Id);
+            reservation.Room = RESTRoomClient.getRoomById(reservation.Room.Id);
 
-            access.PostReservation(reservation);
+            RESTReservationClient.PostReservation(reservation);
 
             return RedirectToAction("Index");
         }
 
         public ActionResult Edit(int id)
         {
-            AccessWebAPI access = new AccessWebAPI();
+            RESTClientClient RESTClientClient = new RESTClientClient();
+            RESTRoomClient RESTRoomClient = new RESTRoomClient();
 
             ReservationVM rvm = new ReservationVM();
-            rvm.Clients = access.getClients();
-            rvm.Rooms = access.GetRooms();
-            rvm.reservation = access.getReservationById(id);
+            rvm.Clients = RESTClientClient.getClients();
+            rvm.Rooms = RESTRoomClient.GetRooms();
+            rvm.reservation = RESTReservationClient.getReservationById(id);
 
             return View(rvm);
         }
@@ -65,12 +66,13 @@ namespace MVC.Controllers
         [HttpPost]
         public ActionResult Edit(Reservation reservation)
         {
-            AccessWebAPI access = new AccessWebAPI();
+            RESTClientClient RESTClientClient = new RESTClientClient();
+            RESTRoomClient RESTRoomClient = new RESTRoomClient();
 
-            reservation.Client = access.getClientById(reservation.Client.Id);
-            reservation.Room = access.getRoomById(reservation.Room.Id);
+            reservation.Client = RESTClientClient.getClientById(reservation.Client.Id);
+            reservation.Room = RESTRoomClient.getRoomById(reservation.Room.Id);
 
-            access.PutReservation(reservation);
+            RESTReservationClient.PutReservation(reservation);
 
             return RedirectToAction("index");
         }
@@ -78,8 +80,7 @@ namespace MVC.Controllers
 
         public ActionResult Delete(int id)
         {
-            AccessWebAPI access = new AccessWebAPI();
-            Reservation reservation = access.getReservationById(id);
+            Reservation reservation = RESTReservationClient.getReservationById(id);
 
             return View(reservation);
         }
@@ -87,8 +88,7 @@ namespace MVC.Controllers
         [HttpPost]
         public ActionResult Delete(int id, string __RequestVerificationToken)
         {
-            AccessWebAPI access = new AccessWebAPI();
-            access.DeleteReservation(id);
+            RESTReservationClient.DeleteReservation(id);
 
             return RedirectToAction("index");
         }

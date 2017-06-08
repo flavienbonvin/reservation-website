@@ -10,12 +10,13 @@ namespace MVC.Controllers
 {
     public class ClientController : Controller
     {
+
+        RESTClientClient RESTClientClient = new RESTClientClient();
+
         // GET: Client
         public ActionResult Index()
         {
-            AccessWebAPI access = new AccessWebAPI();
-
-            return View(access.getClients());
+            return View(RESTClientClient.getClients());
         }
 
         public ActionResult Create()
@@ -26,32 +27,27 @@ namespace MVC.Controllers
         [HttpPost]
         public ActionResult Create(Client client)
         {
-            AccessWebAPI access = new AccessWebAPI();
-
-            access.PostClient(client);
+            RESTClientClient.PostClient(client);
 
             return RedirectToAction("Index");
         }
 
         public ActionResult Edit(int id)
         {
-            AccessWebAPI access = new AccessWebAPI();
-            return View(access.getClientById(id));
+            return View(RESTClientClient.getClientById(id));
         }
 
         [HttpPost]
         public ActionResult Edit(Client client)
         {
-            AccessWebAPI access = new AccessWebAPI();
-            access.PutClient(client);
+            RESTClientClient.PutClient(client);
 
             return RedirectToAction("index");
         }
 
         public ActionResult Delete(int id)
         {
-            AccessWebAPI access = new AccessWebAPI();
-            Client client = access.getClientById(id);
+            Client client = RESTClientClient.getClientById(id);
 
             return View(client);
         }
@@ -59,8 +55,7 @@ namespace MVC.Controllers
         [HttpPost]
         public ActionResult Delete(int id, string __RequestVerificationToken)
         {
-            AccessWebAPI access = new AccessWebAPI();
-            access.DeleteClient(id);
+            RESTClientClient.DeleteClient(id);
 
             return RedirectToAction("index");
         }

@@ -10,12 +10,13 @@ namespace MVC.Controllers
 {
     public class RoomController : Controller
     {
+
+        RESTRoomClient RESTRoomClient = new RESTRoomClient();
+
         // GET: Room
         public ActionResult Index()
         {
-            AccessWebAPI access = new AccessWebAPI();
-
-            return View(access.GetRooms());
+            return View(RESTRoomClient.GetRooms());
         }
 
         public ActionResult Create()
@@ -26,32 +27,27 @@ namespace MVC.Controllers
         [HttpPost]
         public ActionResult Create(Room room)
         {
-            AccessWebAPI access = new AccessWebAPI();
-
-            access.PostRoom(room);
+            RESTRoomClient.PostRoom(room);
 
             return RedirectToAction("Index");
         }
 
         public ActionResult Edit(int id)
         {
-            AccessWebAPI access = new AccessWebAPI();
-            return View(access.getRoomById(id));
+            return View(RESTRoomClient.getRoomById(id));
         }
 
         [HttpPost]
         public ActionResult Edit(Room room)
         {
-            AccessWebAPI access = new AccessWebAPI();
-            access.PutRoom(room);
+            RESTRoomClient.PutRoom(room);
 
             return RedirectToAction("index");
         }
 
         public ActionResult Delete(int id)
         {
-            AccessWebAPI access = new AccessWebAPI();
-            Room room = access.getRoomById(id);
+            Room room = RESTRoomClient.getRoomById(id);
 
             return View(room);
         }
@@ -59,8 +55,7 @@ namespace MVC.Controllers
         [HttpPost]
         public ActionResult Delete(int id, string __RequestVerificationToken)
         {
-            AccessWebAPI access = new AccessWebAPI();
-            access.DeleteRoom(id);
+            RESTRoomClient.DeleteRoom(id);
 
             return RedirectToAction("index");
         }
